@@ -72,3 +72,4 @@ latitude,longitude,depth
 
 ## QGIS上で表示＆出力
 QGISを開き，レイヤ→レイヤの追加→csvテキストレイヤを追加...
+![image](https://github.com/user-attachments/assets/e6587366-b4d9-4523-ad69-eb8368d2ac34)
