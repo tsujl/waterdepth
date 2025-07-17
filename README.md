@@ -1,5 +1,5 @@
 #　海底地形データの作り方（J-DSS 500mメッシュ水深）
-実行環境は，macOS Sonoma 14.5 QGIS3.42.1
+ 実行環境は，macOS Sonoma 14.5 QGIS3.42.1
 ## データの入手
  1. https://www.jodc.go.jp/vpage/depth500_file_j.html にアクセスし，必要な地域のデータをダウンロード
  2. ダウンロードしたファイルを解凍し，作業ディレクトリに移動
