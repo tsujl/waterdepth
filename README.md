@@ -1,7 +1,8 @@
 #　海底地形データの作り方（J-DSS 500mメッシュ水深）
+実行環境は，macOS Sonoma 14.5 QGIS3.42.1
 ## データの入手
- 1. https://www.jodc.go.jp/vpage/depth500_file_j.html にアクセスし，必要な地域のデータをダウンロードする．
- 2. ダウンロードしたファイルを解凍し，作業ディレクトリに移動する．
+ 1. https://www.jodc.go.jp/vpage/depth500_file_j.html にアクセスし，必要な地域のデータをダウンロード
+ 2. ダウンロードしたファイルを解凍し，作業ディレクトリに移動
 ## データの編集
 　データの中身はこんな感じ．
  ```
@@ -19,7 +20,7 @@
 ・測地系は、世界測地系(WGS-84)を採用しています。
 （https://www.jodc.go.jp/jodcweb/JDOSS/infoJEGG_j.html）
 
-コンマ区切りではない，経度と水深の間のスペースの数が桁数によって異なるのでこれをcsv形式に修正します．
+コンマ区切りではない，経度と水深の間のスペースの数が桁数によって異なるのでこれをcsv形式に修正します
 ~~何をどう考えたらこんな形式のデータを作ろうと思うのか．．．~~
 
 まず，このtxtをまとめてcsvに変換するシェルスクリプトを作成する．ファイル名はconvert.shで．
@@ -72,4 +73,21 @@ latitude,longitude,depth
 
 ## QGIS上で表示＆出力
 QGISを開き，レイヤ→レイヤの追加→csvテキストレイヤを追加...
-![image](https://github.com/user-attachments/assets/e6587366-b4d9-4523-ad69-eb8368d2ac34)
+![fig1](https://github.com/user-attachments/assets/e6587366-b4d9-4523-ad69-eb8368d2ac34)
+![fig2](https://github.com/user-attachments/assets/8ba25144-84f5-48d7-be4b-f1baa24e5bac)
+ジオメトリ定義のX値にlongitude, Y値にlatitude, Z値にdepthを入れてレイヤーを追加
+
+するとこんな感じ
+![fig3](https://github.com/user-attachments/assets/3e4a6d62-99ee-4641-be0a-3f5b52a6add3)
+
+このcsvをラスターに変換します．
+1. csvレイヤーをベクターデータにエクスポート（形式は何でもOK．geojsonをおすすめする）
+2. ラスタ→変換→ベクタをラスタ化を選択
+3. 入力レイヤにベクターデータを入れ，焼き込む値の属性は”depth”を選択，出力ラスタライズの単位を地理単位に設定し，水平垂直どちらも500に設定する（500mメッシュなので）
+![fig4](https://github.com/user-attachments/assets/950a84d6-bb51-4ef5-8e56-cab21dd007b5)
+4. 実行
+
+これでgeotiffが出力されたらOK
+![fig5](https://github.com/user-attachments/assets/b66d0f55-0d99-47d5-9e87-196613e63e09)
+
+ところどころデータが抜けていたりするのであとはいい感じに補完すれば終了．
